@@ -1,0 +1,40 @@
+{
+  "bm25": {
+    "recall@1": 0.405,
+    "recall@3": 0.703,
+    "recall@5": 0.784
+  },
+  "intfloat/multilingual-e5-small": {
+    "recall@1": 0.419,
+    "recall@3": 0.635,
+    "recall@5": 0.784,
+    "tempo_s": 10.4
+  },
+  "intfloat/multilingual-e5-small + BM25 (RRF)": {
+    "recall@1": 0.5,
+    "recall@3": 0.716,
+    "recall@5": 0.865
+  },
+  "intfloat/multilingual-e5-base": {
+    "recall@1": 0.419,
+    "recall@3": 0.703,
+    "recall@5": 0.77,
+    "tempo_s": 54.7
+  },
+  "intfloat/multilingual-e5-base + BM25 (RRF)": {
+    "recall@1": 0.486,
+    "recall@3": 0.757,
+    "recall@5": 0.838
+  },
+  "BAAI/bge-m3": {
+    "recall@1": 0.432,
+    "recall@3": 0.676,
+    "recall@5": 0.784,
+    "tempo_s": 154.4
+  },
+  "BAAI/bge-m3 + BM25 (RRF)": {
+    "recall@1": 0.432,
+    "recall@3": 0.676,
+    "recall@5": 0.811
+  }
+}

@@ -1,0 +1,14 @@
+.env
+.venv/
+.venv311/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+# índice FAISS é gerado (reproduzível pelo notebook 01/02)
+base/processed/*.faiss
+# modelos/adapters LoRA pesados
+models/
+*.gguf
+*.safetensors

@@ -1,0 +1,16 @@
+# Python 3.11 recomendado (Colab usa 3.11/3.12)
+pydantic>=2.7
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27
+pypdf>=4.2
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+tqdm>=4.66
+python-dotenv>=1.0
+prometheus-fastapi-instrumentator>=7.0
+pytest>=8.0
+jupyter>=1.0

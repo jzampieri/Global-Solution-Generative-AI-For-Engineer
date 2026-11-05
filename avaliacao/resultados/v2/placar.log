@@ -1,0 +1,39 @@
+[sem_contexto] 10/90
+[sem_contexto] 20/90
+[sem_contexto] 30/90
+[sem_contexto] 40/90
+[sem_contexto] 50/90
+[sem_contexto] 60/90
+[sem_contexto] 70/90
+[sem_contexto] 80/90
+[sem_contexto] 90/90
+[rag] 10/90
+[rag] 20/90
+[rag] 30/90
+[rag] 40/90
+[rag] 50/90
+[rag] 60/90
+[rag] 70/90
+[rag] 80/90
+[rag] 90/90
+[agente] 10/90
+[agente] 20/90
+[agente] 30/90
+[agente] 40/90
+[agente] 50/90
+[agente] 60/90
+[agente] 70/90
+[agente] 80/90
+[agente] 90/90
+[juiz] 30/90
+[juiz] 60/90
+[juiz] 90/90
+{"modo": "sem_contexto", "n": 90, "acerto": 0.26666666666666666, "taxa_alucinacao": 0.36666666666666664, "recusa_correta_nao_consta": 0.5625, "json_valido_1a": 0.8, "citacao_correta": null, "latencia_media_s": 4.259677777777777}
+[juiz] 30/90
+[juiz] 60/90
+[juiz] 90/90
+{"modo": "rag", "n": 90, "acerto": 0.6444444444444445, "taxa_alucinacao": 0.3, "recusa_correta_nao_consta": 0.875, "json_valido_1a": 0.9666666666666667, "citacao_correta": 1.0, "latencia_media_s": 4.875288888888889}
+[juiz] 30/90
+[juiz] 60/90
+[juiz] 90/90
+{"modo": "agente", "n": 90, "acerto": 0.7444444444444445, "taxa_alucinacao": 0.18888888888888888, "recusa_correta_nao_consta": 0.9375, "json_valido_1a": 0.9555555555555556, "citacao_correta": 0.9855072463768116, "latencia_media_s": 10.30491111111111}
