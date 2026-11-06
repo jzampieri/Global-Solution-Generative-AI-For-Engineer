@@ -550,7 +550,7 @@ Em todos os casos a IA orienta, mas não decide.
 ## 18. Links
 
 - **Repositório:** https://github.com/jzampieri/Global-Solution-Generative-AI-For-Engineer
-- **Vídeo de demonstração:** https://youtu.be/aWnovdtb6po (gerado por `scripts/gerar_video.py` a partir das respostas reais da API e do placar)
+- **Vídeo de demonstração:** https://youtu.be/aWnovdtb6po
 
 **Referências da base:**
 - BRASIL. Lei nº 12.608, de 10 de abril de 2012. Política Nacional de Proteção e Defesa Civil.
