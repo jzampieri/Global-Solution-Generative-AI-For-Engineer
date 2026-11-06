@@ -12,3 +12,6 @@ base/processed/*.faiss
 models/
 *.gguf
 *.safetensors
+
+# vídeo e quadros gerados (o vídeo vai para o YouTube; regenerar com scripts/gerar_video.py)
+video/

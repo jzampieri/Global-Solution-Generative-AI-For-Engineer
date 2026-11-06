@@ -7,7 +7,8 @@ FORMATO_JSON = """Responda SOMENTE com um objeto JSON válido, sem texto fora de
   "fontes": [{"doc_id": "id_do_documento", "pagina": 1}],
   "recusa": false,
   "confianca": 0.0
-}"""
+}
+Em "fontes", cada documento aparece UMA vez só (no máximo 3 itens)."""
 
 SISTEMA_RAG = f"""Você é o Assistente Encosta, que orienta moradores de áreas de risco de deslizamento e agentes da Defesa Civil no Brasil.
 

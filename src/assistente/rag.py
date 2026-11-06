@@ -55,21 +55,47 @@ def salvaguarda_permanencia(resposta: RespostaAssistente, textos_recuperados: li
     ), True
 
 
+def carregar_json(texto: str) -> tuple[dict, bool]:
+    """json.loads com reparo de saída truncada dentro de "fontes".
+
+    Se o modelo entrar em laço repetindo fontes e estourar o teto de tokens, o JSON chega cortado
+    no meio da lista. O reparo corta no último objeto completo, fecha a lista e completa os campos
+    que vinham depois: recusa=false (houve resposta com fonte) e confianca=0.5 (confiança reduzida,
+    porque a saída foi reparada). Retorna (dados, reparado). Não repara nenhum outro tipo de defeito.
+    (Pôr "fontes" como último campo evitaria isso, mas fez o qwen2.5:3b marcar recusa=true em respostas
+    válidas, então a ordem original foi mantida.)
+    """
+    try:
+        return json.loads(texto), False
+    except json.JSONDecodeError:
+        pos = texto.find('"fontes"')
+        fim = texto.rfind("}")
+        if pos == -1 or fim <= pos:
+            raise
+        dados = json.loads(texto[: fim + 1] + "]}")
+        dados.setdefault("recusa", False)
+        dados.setdefault("confianca", 0.5)
+        return dados, True
+
+
 def gerar_validado(llm: OllamaLLM, mensagens: list[dict], tentativas_extras: int = 1) -> tuple[RespostaAssistente, dict]:
     """Chama o LLM e valida o JSON. Se falhar, pede correção uma vez; depois, recusa controlada.
 
     Retorna (resposta, meta) com meta = {json_valido_1a, tentativas, latencia_s, bruto}.
     """
-    meta = {"json_valido_1a": False, "tentativas": 0, "latencia_s": 0.0, "bruto": []}
+    meta = {"json_valido_1a": False, "tentativas": 0, "latencia_s": 0.0, "bruto": [], "json_reparado": False}
     msgs = list(mensagens)
     for tentativa in range(1 + tentativas_extras):
-        saida = llm.chat(msgs, json_mode=True)
+        # A nova tentativa usa temperatura maior: com 0,1 o modelo repetia exatamente a mesma saída inválida.
+        saida = llm.chat(msgs, json_mode=True, temperatura=0.1 if tentativa == 0 else 0.4)
         meta["tentativas"] += 1
         meta["latencia_s"] += saida["latencia_s"]
         meta["bruto"].append(saida["content"])
         try:
-            resposta = RespostaAssistente.model_validate(json.loads(saida["content"]))
-            meta["json_valido_1a"] = tentativa == 0
+            dados, reparado = carregar_json(saida["content"])
+            resposta = RespostaAssistente.model_validate(dados)
+            meta["json_valido_1a"] = tentativa == 0 and not reparado
+            meta["json_reparado"] = reparado
             return resposta, meta
         except (json.JSONDecodeError, ValidationError) as erro:
             msgs += [
@@ -80,14 +106,24 @@ def gerar_validado(llm: OllamaLLM, mensagens: list[dict], tentativas_extras: int
 
 
 def filtrar_citacoes(resposta: RespostaAssistente, doc_ids_validos: set[str]) -> tuple[RespostaAssistente, bool]:
-    """Remove fontes inventadas (doc_id que não veio na busca). Retorna (resposta, citacao_correta)."""
+    """Remove fontes inventadas (doc_id que não veio na busca) e duplicadas (máx. 3).
+
+    Uma recusa do modelo vira a recusa padrão (texto claro e igual para o app).
+    Retorna (resposta, citacao_correta).
+    """
     if resposta.recusa:
-        return resposta, True
+        return recusa_controlada(), True
     validas = [f for f in resposta.fontes if f.doc_id in doc_ids_validos]
     correta = len(validas) == len(resposta.fontes) and bool(validas)
     if not validas:
         return recusa_controlada("A resposta gerada não pôde ser ligada a um documento oficial."), False
-    resposta.fontes = validas
+    unicas, vistas = [], set()
+    for f in validas:
+        chave = (f.doc_id, f.pagina)
+        if chave not in vistas:
+            vistas.add(chave)
+            unicas.append(f)
+    resposta.fontes = unicas[:3]
     return resposta, correta
 
 

@@ -1,0 +1,379 @@
+{
+  "modelo": "intfloat/multilingual-e5-small",
+  "n_trechos": 73,
+  "n_respondiveis": 74,
+  "n_nao_consta": 16,
+  "recall": {
+    "recall@1": 0.5540540540540541,
+    "recall@3": 0.7972972972972973,
+    "recall@5": 0.8648648648648649
+  },
+  "recall_por_grupo": {
+    "direitos": {
+      "recall@1": 0.3684210526315789,
+      "recall@3": 0.7894736842105263,
+      "recall@5": 0.8947368421052632
+    },
+    "niveis_de_alerta": {
+      "recall@1": 0.5714285714285714,
+      "recall@3": 0.7142857142857143,
+      "recall@5": 0.8095238095238095
+    },
+    "o_que_fazer": {
+      "recall@1": 0.6111111111111112,
+      "recall@3": 0.9444444444444444,
+      "recall@5": 0.9444444444444444
+    },
+    "sinais_de_risco": {
+      "recall@1": 0.6875,
+      "recall@3": 0.75,
+      "recall@5": 0.8125
+    }
+  },
+  "limiar": 0.84,
+  "acuracia_limiar": 0.8888888888888888,
+  "score_respondivel": {
+    "min": 0.82243812084198,
+    "mediana": 0.8620810508728027,
+    "max": 0.8950160145759583
+  },
+  "score_nao_consta": {
+    "min": 0.7874637842178345,
+    "mediana": 0.8395949006080627,
+    "max": 0.8752618432044983
+  },
+  "recusa_indevida": [
+    "q023",
+    "q025",
+    "q044"
+  ],
+  "aceita_indevida": [
+    "q076",
+    "q077",
+    "q078",
+    "q081",
+    "q087",
+    "q088",
+    "q090"
+  ],
+  "falhas_top3": [
+    {
+      "id": "q001",
+      "pergunta": "A porta da minha casa começou a emperrar. Isso é sinal de quê?",
+      "gabarito": [
+        "cemaden_educacao_0023"
+      ],
+      "top3": [
+        [
+          "cemaden_educacao_0006",
+          0.8381
+        ],
+        [
+          "ppdc_santos_0010",
+          0.8297
+        ],
+        [
+          "cemaden_educacao_0004",
+          0.8292
+        ]
+      ]
+    },
+    {
+      "id": "q003",
+      "pergunta": "O poste da minha rua está ficando torto. Devo me preocupar?",
+      "gabarito": [
+        "cartilha_dc_sp_0001",
+        "cemaden_educacao_0005"
+      ],
+      "top3": [
+        [
+          "ipt_mapeamento_riscos_0001",
+          0.847
+        ],
+        [
+          "cemaden_educacao_0026",
+          0.8398
+        ],
+        [
+          "cemaden_educacao_0003",
+          0.8455
+        ]
+      ]
+    },
+    {
+      "id": "q008",
+      "pergunta": "Por que o morro fica mais perigoso depois de vários dias seguidos de chuva?",
+      "gabarito": [
+        "cemaden_educacao_0005"
+      ],
+      "top3": [
+        [
+          "cemaden_educacao_0004",
+          0.8717
+        ],
+        [
+          "cartilha_dc_sp_0001",
+          0.8495
+        ],
+        [
+          "cemaden_educacao_0007",
+          0.8478
+        ]
+      ]
+    },
+    {
+      "id": "q015",
+      "pergunta": "O que é um deslizamento de terra?",
+      "gabarito": [
+        "cemaden_educacao_0023"
+      ],
+      "top3": [
+        [
+          "cemaden_educacao_0005",
+          0.8477
+        ],
+        [
+          "cemaden_educacao_0014",
+          0.8501
+        ],
+        [
+          "cartilha_dc_sp_0001",
+          0.8593
+        ]
+      ]
+    },
+    {
+      "id": "q017",
+      "pergunta": "Choveu a noite toda e apareceu uma rachadura nova na parede. Devo sair de casa?",
+      "gabarito": [
+        "cartilha_dc_sp_0001"
+      ],
+      "top3": [
+        [
+          "cemaden_educacao_0004",
+          0.8377
+        ],
+        [
+          "cemaden_educacao_0015",
+          0.8379
+        ],
+        [
+          "cemaden_educacao_0022",
+          0.8427
+        ]
+      ]
+    },
+    {
+      "id": "q035",
+      "pergunta": "A prefeitura é obrigada a fazer alguma coisa para reduzir o risco de desastre?",
+      "gabarito": [
+        "lei_12608_2012_0004"
+      ],
+      "top3": [
+        [
+          "lei_12608_2012_0005",
+          0.8723
+        ],
+        [
+          "cemaden_educacao_0017",
+          0.8682
+        ],
+        [
+          "lei_12608_2012_0002",
+          0.854
+        ]
+      ]
+    },
+    {
+      "id": "q036",
+      "pergunta": "A prefeitura pode deixar de agir porque não tem certeza se há risco?",
+      "gabarito": [
+        "lei_12608_2012_0004"
+      ],
+      "top3": [
+        [
+          "ipt_mapeamento_riscos_0010",
+          0.8455
+        ],
+        [
+          "cemaden_educacao_0022",
+          0.8493
+        ],
+        [
+          "cemaden_educacao_0017",
+          0.8491
+        ]
+      ]
+    },
+    {
+      "id": "q047",
+      "pergunta": "Uma escola pode continuar funcionando em área de risco de desastre?",
+      "gabarito": [
+        "lei_12608_2012_0014"
+      ],
+      "top3": [
+        [
+          "cemaden_educacao_0018",
+          0.8636
+        ],
+        [
+          "cemaden_educacao_0022",
+          0.8617
+        ],
+        [
+          "cemaden_educacao_0023",
+          0.8539
+        ]
+      ]
+    },
+    {
+      "id": "q049",
+      "pergunta": "O que é situação de emergência e o que é estado de calamidade pública?",
+      "gabarito": [
+        "lei_12608_2012_0002",
+        "lei_12608_2012_0003"
+      ],
+      "top3": [
+        [
+          "lei_12608_2012_0008",
+          0.8602
+        ],
+        [
+          "lei_12608_2012_0006",
+          0.8561
+        ],
+        [
+          "lei_12608_2012_0009",
+          0.8532
+        ]
+      ]
+    },
+    {
+      "id": "q054",
+      "pergunta": "Quais são os níveis do Plano Preventivo de Defesa Civil (PPDC)?",
+      "gabarito": [
+        "ppdc_santos_0004"
+      ],
+      "top3": [
+        [
+          "ppdc_sp_2018_2019_0001",
+          0.8864
+        ],
+        [
+          "ppdc_santos_0003",
+          0.871
+        ],
+        [
+          "ppdc_santos_0006",
+          0.8629
+        ]
+      ]
+    },
+    {
+      "id": "q055",
+      "pergunta": "O que a Defesa Civil faz no estado de Observação do PPDC?",
+      "gabarito": [
+        "ppdc_santos_0005"
+      ],
+      "top3": [
+        [
+          "ppdc_sp_2018_2019_0001",
+          0.8675
+        ],
+        [
+          "ppdc_santos_0003",
+          0.8693
+        ],
+        [
+          "ppdc_santos_0004",
+          0.8506
+        ]
+      ]
+    },
+    {
+      "id": "q057",
+      "pergunta": "O que acontece no nível de Alerta Máximo do PPDC?",
+      "gabarito": [
+        "ppdc_santos_0008"
+      ],
+      "top3": [
+        [
+          "ppdc_sp_2018_2019_0001",
+          0.84
+        ],
+        [
+          "ppdc_santos_0003",
+          0.8436
+        ],
+        [
+          "ppdc_santos_0004",
+          0.8343
+        ]
+      ]
+    },
+    {
+      "id": "q060",
+      "pergunta": "Qual é o objetivo do Plano Preventivo de Defesa Civil?",
+      "gabarito": [
+        "ppdc_santos_0004"
+      ],
+      "top3": [
+        [
+          "ppdc_sp_2018_2019_0001",
+          0.8657
+        ],
+        [
+          "lei_12608_2012_0003",
+          0.8459
+        ],
+        [
+          "ppdc_santos_0005",
+          0.8589
+        ]
+      ]
+    },
+    {
+      "id": "q063",
+      "pergunta": "Por que a Defesa Civil olha a chuva acumulada em 72 horas?",
+      "gabarito": [
+        "cemaden_educacao_0007",
+        "cemaden_educacao_0014"
+      ],
+      "top3": [
+        [
+          "ppdc_sp_2018_2019_0001",
+          0.852
+        ],
+        [
+          "ppdc_santos_0005",
+          0.8535
+        ],
+        [
+          "cemaden_educacao_0015",
+          0.8518
+        ]
+      ]
+    },
+    {
+      "id": "q073",
+      "pergunta": "No estado de Observação, para quantas famílias Santos prepara abrigo e alimentação?",
+      "gabarito": [
+        "ppdc_santos_0005"
+      ],
+      "top3": [
+        [
+          "ppdc_santos_0009",
+          0.8621
+        ],
+        [
+          "ppdc_santos_0007",
+          0.8562
+        ],
+        [
+          "ppdc_santos_0004",
+          0.8423
+        ]
+      ]
+    }
+  ]
+}

@@ -91,6 +91,23 @@ def test_tokenizar_reduz_plural():
     assert tokenizar("rachaduras nas paredes") == tokenizar("rachadura na parede")
 
 
+def test_repara_json_truncado_em_fontes():
+    from assistente.rag import carregar_json
+
+    cortado = ('{"resposta": "Pode ser sinal de deslizamento.", "o_que_fazer": ["Ligue 199"], '
+               '"fontes": [{"doc_id": "cemaden_educacao", "pagina": 21}, {"doc_id": "cemaden_educacao", "pag')
+    dados, reparado = carregar_json(cortado)
+    assert reparado and dados["fontes"] == [{"doc_id": "cemaden_educacao", "pagina": 21}]
+    assert dados["recusa"] is False and dados["confianca"] == 0.5
+    RespostaAssistente.model_validate(dados)
+
+
+def test_fontes_duplicadas_sao_removidas():
+    r = RespostaAssistente(resposta="x", fontes=[{"doc_id": "a", "pagina": 1}] * 11 + [{"doc_id": "b"}], confianca=0.5)
+    r2, ok = filtrar_citacoes(r, {"a", "b"})
+    assert ok and [f.doc_id for f in r2.fontes] == ["a", "b"]
+
+
 class LLMFalso:
     """Primeira saída inválida, segunda válida: testa a nova tentativa."""
 

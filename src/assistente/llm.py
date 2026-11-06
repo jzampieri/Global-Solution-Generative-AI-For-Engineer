@@ -11,10 +11,11 @@ from .config import CONFIG
 
 class OllamaLLM:
     def __init__(self, modelo: str = CONFIG.llm_model, url: str = CONFIG.ollama_url, timeout: float = 180,
-                 num_ctx: int = 8192, num_predict: int = 900):
+                 num_ctx: int = 8192, num_predict: int = 900, repeat_penalty: float = 1.0):
         self.modelo = modelo
         self.num_ctx = num_ctx
         self.num_predict = num_predict
+        self.repeat_penalty = repeat_penalty
         self.url = url.rstrip("/")
         self.timeout = timeout
 
@@ -28,7 +29,11 @@ class OllamaLLM:
             # num_ctx: o padrão do Ollama (2048) cortaria 5 trechos de ~530 tokens + instrução.
             # num_predict: teto de tokens gerados; sem ele, o modo JSON de modelos pequenos às vezes
             # gera espaços em branco sem parar (a saída cortada vira JSON inválido → nova tentativa/recusa).
-            "options": {"temperature": temperatura, "num_ctx": self.num_ctx, "num_predict": self.num_predict},
+            # repeat_penalty: fica em 1.0 (desligado). Com 1.1 o laço em "fontes" diminuía, mas o modelo deixava
+            # de copiar números dos trechos ("de 1 em 1 hora" virou "pluviômetro automático"). O laço é tratado
+            # pelo reparo de JSON truncado (rag.carregar_json) e pela nova tentativa com temperatura maior.
+            "options": {"temperature": temperatura, "num_ctx": self.num_ctx, "num_predict": self.num_predict,
+                        "repeat_penalty": self.repeat_penalty},
         }
         if json_mode and not tools:
             corpo["format"] = "json"

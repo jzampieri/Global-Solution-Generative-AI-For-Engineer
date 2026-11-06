@@ -14,3 +14,7 @@ python-dotenv>=1.0
 prometheus-fastapi-instrumentator>=7.0
 pytest>=8.0
 jupyter>=1.0
+# opcional: geração do vídeo de demonstração (scripts/gerar_video.py)
+pillow>=10.0
+imageio>=2.34
+imageio-ffmpeg>=0.5

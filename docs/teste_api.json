@@ -1,0 +1,246 @@
+[
+  {
+    "caso": "Saúde da API",
+    "metodo": "GET /health",
+    "status": 200,
+    "resposta": {
+      "status": "ok",
+      "modelo": "qwen2.5:3b",
+      "pronto": true
+    }
+  },
+  {
+    "caso": "Pergunta respondível (RAG)",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "A porta da minha casa começou a emperrar. Isso é sinal de quê?",
+      "modo": "rag"
+    },
+    "status": 200,
+    "esperado": 200,
+    "ok": true,
+    "latencia_s": 27.14,
+    "resposta": {
+      "resposta": "Isso pode ser um sinal de que a sua casa está em risco de deslizamento. Em emergência ligue 199 (Defesa Civil) ou 193 (Bombeiros).\n\nOrientação geral baseada em documentos oficiais. Não substitui a Defesa Civil.",
+      "o_que_fazer": [
+        "Em emergência ligue 199 (Defesa Civil) ou 193 (Bombeiros)."
+      ],
+      "fontes": [
+        {
+          "doc_id": "cemaden_educacao",
+          "pagina": 8,
+          "trecho": null
+        },
+        {
+          "doc_id": "cemaden_educacao",
+          "pagina": 21,
+          "trecho": null
+        }
+      ],
+      "recusa": false,
+      "confianca": 0.5
+    }
+  },
+  {
+    "caso": "Salvaguarda: sair ou ficar em casa",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "Choveu a noite toda e apareceu uma rachadura nova na parede. Devo sair de casa?",
+      "modo": "rag"
+    },
+    "status": 200,
+    "esperado": 200,
+    "ok": true,
+    "latencia_s": 9.06,
+    "resposta": {
+      "resposta": "Diante de sinais de perigo, como rachaduras, trincas ou inclinação de muros, postes e árvores, saia imediatamente do local e procure abrigo em um lugar sem perigo de deslizamento. Depois, informe a Defesa Civil pelo 199.\n\nOrientação geral baseada em documentos oficiais. Não substitui a Defesa Civil.",
+      "o_que_fazer": [
+        "Saia imediatamente do local",
+        "Procure abrigo em lugar sem perigo de deslizamento",
+        "Em emergência ligue 199 (Defesa Civil) ou 193 (Bombeiros)."
+      ],
+      "fontes": [
+        {
+          "doc_id": "cartilha_dc_sp",
+          "pagina": 1,
+          "trecho": null
+        }
+      ],
+      "recusa": false,
+      "confianca": 0.5
+    }
+  },
+  {
+    "caso": "Agente com setor (dados da API do produto)",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "Está chovendo muito aqui, o que devo fazer?",
+      "setor_id": "vila_sahy",
+      "modo": "agente"
+    },
+    "status": 200,
+    "esperado": 200,
+    "ok": true,
+    "latencia_s": 19.96,
+    "resposta": {
+      "resposta": "O choveu 95 mm em 72 horas na sua localização, nível de atenção. Vigie as condições e entre em contato com a Defesa Civil se houver sinais de perigo.\n\nOrientação geral baseada em documentos oficiais. Não substitui a Defesa Civil.",
+      "o_que_fazer": [
+        "Em emergência ligue 199 (Defesa Civil) ou 193 (Bombeiros)."
+      ],
+      "fontes": [
+        {
+          "doc_id": "api_encosta_viva",
+          "pagina": 1,
+          "trecho": null
+        }
+      ],
+      "recusa": false,
+      "confianca": 0.95
+    }
+  },
+  {
+    "caso": "Fora do tema: recusa pelo limiar",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "Qual o melhor time de futebol do Brasil?",
+      "modo": "rag"
+    },
+    "status": 200,
+    "esperado": 200,
+    "ok": true,
+    "latencia_s": 0.03,
+    "resposta": {
+      "resposta": "A informação não consta na base oficial do assistente. Procure a Defesa Civil do seu município.\n\nOrientação geral baseada em documentos oficiais. Não substitui a Defesa Civil.",
+      "o_que_fazer": [
+        "Em emergência ligue 199 (Defesa Civil) ou 193 (Bombeiros)."
+      ],
+      "fontes": [],
+      "recusa": true,
+      "confianca": 0.0
+    }
+  },
+  {
+    "caso": "Do tema, mas não consta na base",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "Quantas pessoas morreram nos deslizamentos de Petrópolis em 2022?",
+      "modo": "rag"
+    },
+    "status": 200,
+    "esperado": 200,
+    "ok": true,
+    "latencia_s": 8.11,
+    "resposta": {
+      "resposta": "A informação não consta na base oficial do assistente. Procure a Defesa Civil do seu município.\n\nOrientação geral baseada em documentos oficiais. Não substitui a Defesa Civil.",
+      "o_que_fazer": [
+        "Em emergência ligue 199 (Defesa Civil) ou 193 (Bombeiros)."
+      ],
+      "fontes": [],
+      "recusa": true,
+      "confianca": 0.0
+    }
+  },
+  {
+    "caso": "Mesmo modelo sem contexto (comparação)",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "No Alerta Máximo, o que a Defesa Civil de Santos orienta as famílias a fazer?",
+      "modo": "sem_contexto"
+    },
+    "status": 200,
+    "esperado": 200,
+    "ok": true,
+    "latencia_s": 4.27,
+    "resposta": {
+      "resposta": "Fique em casa e siga as orientações da Defesa Civil\n\nOrientação geral baseada em documentos oficiais. Não substitui a Defesa Civil.",
+      "o_que_fazer": [
+        "Fique em casa e siga as orientações da Defesa Civil",
+        "Se você estiver em um local de risco, siga as instruções da Defesa Civil",
+        "Se necessário, saia da casa e procure um local seguro",
+        "Em emergência ligue 199 (Defesa Civil) ou 193 (Bombeiros)."
+      ],
+      "fontes": [
+        {
+          "doc_id": "12345",
+          "pagina": 1,
+          "trecho": null
+        },
+        {
+          "doc_id": "67890",
+          "pagina": 2,
+          "trecho": null
+        }
+      ],
+      "recusa": false,
+      "confianca": 0.95
+    }
+  },
+  {
+    "caso": "Entrada inválida: pergunta curta demais",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "oi"
+    },
+    "status": 422,
+    "esperado": 422,
+    "ok": true,
+    "latencia_s": 0.0,
+    "resposta": {
+      "detail": [
+        {
+          "type": "string_too_short",
+          "loc": [
+            "body",
+            "pergunta"
+          ],
+          "msg": "String should have at least 3 characters",
+          "input": "oi",
+          "ctx": {
+            "min_length": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "caso": "Entrada inválida: modo inexistente",
+    "metodo": "POST /assistente/perguntar",
+    "requisicao": {
+      "pergunta": "Qual o telefone da Defesa Civil?",
+      "modo": "chatgpt"
+    },
+    "status": 422,
+    "esperado": 422,
+    "ok": true,
+    "latencia_s": 0.0,
+    "resposta": {
+      "detail": [
+        {
+          "type": "literal_error",
+          "loc": [
+            "body",
+            "modo"
+          ],
+          "msg": "Input should be 'sem_contexto', 'rag' or 'agente'",
+          "input": "chatgpt",
+          "ctx": {
+            "expected": "'sem_contexto', 'rag' or 'agente'"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "caso": "Métricas Prometheus",
+    "metodo": "GET /metrics",
+    "status": 200,
+    "amostra": [
+      "http_requests_total{handler=\"none\",method=\"HEAD\",status=\"4xx\"} 1.0",
+      "http_requests_total{handler=\"none\",method=\"GET\",status=\"4xx\"} 2.0",
+      "http_requests_total{handler=\"/health\",method=\"GET\",status=\"2xx\"} 1.0",
+      "http_requests_total{handler=\"/assistente/perguntar\",method=\"POST\",status=\"2xx\"} 6.0",
+      "http_requests_total{handler=\"/assistente/perguntar\",method=\"POST\",status=\"4xx\"} 2.0",
+      "http_request_duration_seconds_count{handler=\"none\",method=\"HEAD\"} 1.0"
+    ]
+  }
+]
